@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh; /* Ensure the body takes full height of the viewport */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  
+  .location-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* Ensure full width */
+    height: 100%; /* Ensure full height */
+  }
+  
+  .location-container {
+    background-color: #1f1f2e;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+  }
+  
+  .location-container h2 {
+    color: white;
+    margin-bottom: 25px;
+    font-size: 24px;
+  }
+  
+  .dropdown-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .dropdown-row select {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #ffffff;
+    color: #000000;
+    min-width: 150px;
+  }
+  
+  .dropdown-row select:disabled {
+    background-color: #dddddd;
+    color: #888888;
+  }
+  
