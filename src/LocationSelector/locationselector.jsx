@@ -9,12 +9,7 @@ const LocationSelector = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-
-  const handleFetchError = (errorType) => {
-    console.error(`${errorType} API error`);
-    // Log error or set an error state for UI feedback
-    // setErrorMessage(`${errorType} API error`);
-  };
+  const [selectedLocation, setSelectedLocation] = useState(""); // New state for displaying selected location
 
   useEffect(() => {
     fetch("https://crio-location-selector.onrender.com/countries")
@@ -24,15 +19,11 @@ const LocationSelector = () => {
         if (!contentType?.includes("application/json")) {
           throw new Error("Invalid country response");
         }
-        const data = await res.json();
-        if (data) {
-          setCountries(data);
-        } else {
-          setCountries([]);
-        }
+        return await res.json();
       })
-      .catch(() => {
-        handleFetchError('Country');
+      .then((data) => setCountries(data))
+      .catch((err) => {
+        console.error("Country API error:", err);
         setCountries([]);
       });
   }, []);
@@ -46,15 +37,11 @@ const LocationSelector = () => {
           if (!contentType?.includes("application/json")) {
             throw new Error("Invalid state response");
           }
-          const data = await res.json();
-          if (data) {
-            setStates(data);
-          } else {
-            setStates([]);
-          }
+          return await res.json();
         })
-        .catch(() => {
-          handleFetchError('State');
+        .then((data) => setStates(data))
+        .catch((err) => {
+          console.error("State API error:", err);
           setStates([]);
         });
     } else {
@@ -76,15 +63,11 @@ const LocationSelector = () => {
           if (!contentType?.includes("application/json")) {
             throw new Error("Invalid city response");
           }
-          const data = await res.json();
-          if (data) {
-            setCities(data);
-          } else {
-            setCities([]);
-          }
+          return await res.json();
         })
-        .catch(() => {
-          handleFetchError('City');
+        .then((data) => setCities(data))
+        .catch((err) => {
+          console.error("City API error:", err);
           setCities([]);
         });
     } else {
@@ -92,6 +75,13 @@ const LocationSelector = () => {
       setSelectedCity("");
     }
   }, [selectedState, selectedCountry]);
+
+  // Update the selected location whenever country, state, or city changes
+  useEffect(() => {
+    if (selectedCountry && selectedState && selectedCity) {
+      setSelectedLocation(`You selected ${selectedCity}, ${selectedState}, ${selectedCountry}`);
+    }
+  }, [selectedCountry, selectedState, selectedCity]);
 
   return (
     <div className="location-wrapper">
@@ -143,6 +133,13 @@ const LocationSelector = () => {
             ))}
           </select>
         </div>
+
+        {/* Display the selected location */}
+        {selectedLocation && (
+          <div className="selected-location">
+            <p>{selectedLocation}</p>
+          </div>
+        )}
       </div>
     </div>
   );
