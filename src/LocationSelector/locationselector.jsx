@@ -42,7 +42,7 @@ const LocationSelector = () => {
   return (
     <div
       style={{
-        minHeight: "20vh",
+        minHeight: "55vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
